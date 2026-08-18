@@ -21,7 +21,6 @@ const tilt = computed(() => {
   return `${((h % 30) - 15) / 10}deg`
 })
 
-const rings = computed(() => Math.min(props.shot.charge, 4))
 const typeColor = computed(() => TYPE_COLORS[props.shot.type])
 
 function onDragStart(e: DragEvent) {
@@ -44,18 +43,20 @@ function onDragStart(e: DragEvent) {
       </svg>
 
       <svg viewBox="0 0 130 26" class="shell" aria-hidden="true">
-        <polygon points="2,13 26,4 26,22" :fill="typeColor" stroke="#22201c" stroke-width="1.5" />
-        <rect x="26" y="4" width="52" height="18" rx="2" fill="#efe8d2" stroke="#22201c" stroke-width="1.5" />
-        <text x="52" y="17.5" text-anchor="middle" class="shell-type">{{ shot.type }}</text>
-        <path d="M 82 2 L 79 2 L 79 24 L 82 24" fill="none" stroke="#22201c" stroke-width="1.8" />
-        <text x="90" y="18" text-anchor="middle" class="shell-charge">{{ shot.charge }}</text>
-        <path
-          v-for="r in rings"
+        <polygon points="2,13 24,4 24,22" :fill="typeColor" stroke="#22201c" stroke-width="1.5" />
+        <rect x="24" y="4" width="44" height="18" rx="2" fill="#efe8d2" stroke="#22201c" stroke-width="1.5" />
+        <text x="46" y="17.5" text-anchor="middle" class="shell-type">{{ shot.type }}</text>
+        <path d="M 76 2 L 73 2 L 73 24 L 76 24" fill="none" stroke="#22201c" stroke-width="1.8" />
+        <text x="84" y="18" text-anchor="middle" class="shell-charge">{{ shot.charge }}</text>
+        <rect
+          v-for="r in shot.charge"
           :key="r"
-          :d="`M ${96 + r * 6} 4 A 9 9 0 0 1 ${96 + r * 6} 22`"
-          fill="none"
-          stroke="#22201c"
-          stroke-width="1.8"
+          :x="90 + (r - 1) * 6.5"
+          y="5"
+          width="4.5"
+          height="16"
+          rx="1"
+          fill="#22201c"
         />
       </svg>
 
@@ -81,26 +82,28 @@ function onDragStart(e: DragEvent) {
       <div class="value-block">
         <svg viewBox="0 0 64 34" class="value-icon" aria-hidden="true">
           <line x1="2" y1="30" x2="62" y2="30" stroke="#57523f" stroke-width="1.5" stroke-dasharray="3 2" />
-          <rect x="8" y="21" width="22" height="7" rx="2" fill="#22201c" />
-          <rect x="24" y="10" width="22" height="5" rx="1.5" fill="#22201c" transform="rotate(-28 24 15)" />
-          <circle cx="14" cy="29" r="3.5" fill="#22201c" />
-          <circle cx="25" cy="29" r="3.5" fill="#22201c" />
-          <line x1="48" y1="26" x2="48" y2="8" stroke="#b5432f" stroke-width="2.5" />
-          <polygon points="48,2 44,10 52,10" fill="#b5432f" />
+          <path d="M 19 24 L 15 27 L 14 30" fill="none" stroke="#22201c" stroke-width="2.5" stroke-linecap="round" />
+          <path d="M 29 24 L 32 27 L 33 30" fill="none" stroke="#22201c" stroke-width="2.5" stroke-linecap="round" />
+          <polygon points="11,17 29,15 35,18 34,24 12,24" fill="#22201c" />
+          <line x1="31" y1="18" x2="47" y2="6" stroke="#22201c" stroke-width="3.5" stroke-linecap="round" />
+          <circle cx="31" cy="18" r="2.2" fill="#c9a437" />
+          <line x1="55" y1="26" x2="55" y2="11" stroke="#b5432f" stroke-width="2.5" />
+          <polygon points="55,4 50.5,12 59.5,12" fill="#b5432f" />
         </svg>
         <div class="value-num">{{ formatElevation(shot.elevation) }}°</div>
       </div>
 
       <div class="value-block">
         <svg viewBox="0 0 64 34" class="value-icon" aria-hidden="true">
+          <circle cx="32" cy="17" r="13" fill="none" stroke="#57523f" stroke-width="1.3" stroke-dasharray="2.5 2.2" />
+          <rect x="26.5" y="14" width="11" height="9" rx="2" fill="#22201c" />
+          <line x1="30" y1="15" x2="30" y2="5" stroke="#22201c" stroke-width="2.4" />
+          <line x1="34" y1="15" x2="34" y2="5" stroke="#22201c" stroke-width="2.4" />
+          <path d="M 27.5 5.5 A 11 11 0 0 0 20.5 11" fill="none" stroke="#b5432f" stroke-width="2.4" />
+          <polygon points="17.5,15.5 19.2,7.8 24.8,11.8" fill="#b5432f" />
+          <path d="M 36.5 5.5 A 11 11 0 0 1 43.5 11" fill="none" stroke="#b5432f" stroke-width="2.4" />
+          <polygon points="46.5,15.5 44.8,7.8 39.2,11.8" fill="#b5432f" />
           <line x1="2" y1="30" x2="62" y2="30" stroke="#57523f" stroke-width="1.5" stroke-dasharray="3 2" />
-          <rect x="24" y="18" width="16" height="10" rx="2" fill="#22201c" />
-          <line x1="29" y1="18" x2="29" y2="6" stroke="#22201c" stroke-width="2.5" />
-          <line x1="35" y1="18" x2="35" y2="6" stroke="#22201c" stroke-width="2.5" />
-          <path d="M 20 14 A 16 16 0 0 1 30 6" fill="none" stroke="#b5432f" stroke-width="2.5" />
-          <polygon points="18,18 17,10 24,13" fill="#b5432f" />
-          <path d="M 44 14 A 16 16 0 0 0 34 6" fill="none" stroke="#b5432f" stroke-width="2.5" />
-          <polygon points="46,18 47,10 40,13" fill="#b5432f" />
         </svg>
         <div class="value-num">{{ formatAzimuth(shot.azimuth) }}°</div>
       </div>

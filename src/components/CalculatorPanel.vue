@@ -154,6 +154,7 @@ defineExpose({ focusAzimuth, register })
             enterkeyhint="next"
             @keydown="filterKeys"
             @keydown.enter.prevent="focusDistance"
+            @keydown.tab.prevent="focusDistance"
           />
           <span class="unit">°</span>
         </div>
@@ -180,6 +181,7 @@ defineExpose({ focusAzimuth, register })
             enterkeyhint="done"
             @keydown="filterKeys"
             @keydown.enter.prevent="register"
+            @keydown.tab.prevent="focusAzimuth"
           />
           <span class="unit">{{ t('km') }}</span>
         </div>

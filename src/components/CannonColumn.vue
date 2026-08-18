@@ -29,13 +29,20 @@ function onDrop(e: DragEvent) {
   >
     <header class="cannon-head">
       <svg viewBox="0 0 60 34" class="cannon-icon" aria-hidden="true">
-        <line x1="2" y1="31" x2="58" y2="31" stroke="#2f3a29" stroke-width="2" />
-        <rect x="16" y="8" width="34" height="6" rx="2" fill="#22201c" transform="rotate(-20 16 14)" />
-        <rect x="12" y="19" width="22" height="8" rx="2" fill="#22201c" />
-        <circle cx="18" cy="28" r="5" fill="#14120e" stroke="#c9a437" stroke-width="1.5" />
-        <circle cx="30" cy="28" r="5" fill="#14120e" stroke="#c9a437" stroke-width="1.5" />
-        <circle cx="18" cy="28" r="1.5" fill="#c9a437" />
-        <circle cx="30" cy="28" r="1.5" fill="#c9a437" />
+        <line x1="2" y1="32" x2="58" y2="32" stroke="#2f3a29" stroke-width="2" />
+        <path d="M 16 22 L 11 26 L 12 31" fill="none" stroke="#14120e" stroke-width="3" stroke-linecap="round" />
+        <path d="M 30 22 L 34 27 L 32 31" fill="none" stroke="#14120e" stroke-width="3" stroke-linecap="round" />
+        <path d="M 23 22 L 21 27 L 23 31" fill="none" stroke="#14120e" stroke-width="2.2" stroke-linecap="round" />
+        <rect x="9" y="29.5" width="6" height="3" rx="1" fill="#14120e" />
+        <rect x="29" y="29.5" width="6" height="3" rx="1" fill="#14120e" />
+        <polygon points="7,15 12,11 32,10 37,13 36,22 9,22" fill="#22201c" />
+        <rect x="15" y="7" width="10" height="4" rx="1" fill="#22201c" />
+        <line x1="33" y1="13" x2="54" y2="5" stroke="#22201c" stroke-width="3.2" stroke-linecap="round" />
+        <line x1="50" y1="4" x2="52" y2="9" stroke="#22201c" stroke-width="1.6" />
+        <line x1="47" y1="5" x2="49" y2="10" stroke="#22201c" stroke-width="1.6" />
+        <circle cx="33" cy="14" r="2" fill="#c9a437" />
+        <rect x="11" y="16" width="3" height="2.4" fill="#c9a437" />
+        <rect x="16" y="16" width="3" height="2.4" fill="#c9a437" />
       </svg>
       <span class="plate-label">{{ t('gun') }} {{ gun }}</span>
       <transition name="fade">

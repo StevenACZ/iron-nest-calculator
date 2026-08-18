@@ -42,12 +42,30 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
     <header class="top">
       <p class="tagline">{{ t('tagline') }}</p>
       <div class="title-row">
-        <h1 class="title">Iron Nest</h1>
-        <button type="button" class="lang-btn" @click="toggleLang">
-          {{ t('langLabel') }}
-        </button>
+        <h1 class="title">
+          Iron Nest
+          <span class="subtitle">{{ t('subtitle') }}</span>
+        </h1>
+        <div class="header-links">
+          <a
+            class="gh-btn"
+            href="https://github.com/StevenACZ/iron-nest-calculator"
+            target="_blank"
+            rel="noopener"
+            aria-label="GitHub"
+          >
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.42 7.42 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"
+              />
+            </svg>
+          </a>
+          <button type="button" class="lang-btn" @click="toggleLang">
+            {{ t('langLabel') }}
+          </button>
+        </div>
       </div>
-      <p class="subtitle">{{ t('subtitle') }}</p>
     </header>
 
     <main class="board">
@@ -84,6 +102,37 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
 
     <footer class="foot">
       <p class="hints">{{ t('hintKeys') }} · {{ t('hintDrag') }}</p>
+      <section class="about">
+        <p class="intro">{{ t('intro') }}</p>
+        <details class="faq">
+          <summary>{{ t('faqTitle') }}</summary>
+          <dl>
+            <dt>{{ t('faq1q') }}</dt>
+            <dd>{{ t('faq1a') }}</dd>
+            <dt>{{ t('faq2q') }}</dt>
+            <dd>{{ t('faq2a') }}</dd>
+            <dt>{{ t('faq3q') }}</dt>
+            <dd>{{ t('faq3a') }}</dd>
+            <dt>{{ t('faq4q') }}</dt>
+            <dd>{{ t('faq4a') }}</dd>
+          </dl>
+        </details>
+        <nav class="ext-links">
+          <a
+            href="https://store.steampowered.com/app/2950790/IRON_NEST_Heavy_Turret_Simulator/"
+            target="_blank"
+            rel="noopener"
+          >
+            {{ t('linkSteam') }}
+          </a>
+          <a href="https://github.com/StevenACZ/iron-nest-calculator" target="_blank" rel="noopener">
+            {{ t('linkGithub') }}
+          </a>
+          <a href="https://iron-nest.fandom.com/" target="_blank" rel="noopener">
+            {{ t('linkWiki') }}
+          </a>
+        </nav>
+      </section>
       <p class="disclaimer">{{ t('disclaimer') }}</p>
     </footer>
   </div>
@@ -132,11 +181,42 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
     0 2px 3px rgb(0 0 0 / 65%);
 }
 
-.lang-btn {
+.header-links {
   position: absolute;
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.gh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  background: rgb(0 0 0 / 30%);
+  border: 1px solid rgb(201 164 55 / 40%);
+  color: var(--cream);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.gh-btn:hover {
+  border-color: var(--brass);
+  color: var(--brass-soft);
+}
+
+.gh-btn svg {
+  width: 17px;
+  height: 17px;
+}
+
+.lang-btn {
   background: rgb(0 0 0 / 30%);
   border: 1px solid rgb(201 164 55 / 40%);
   border-radius: 5px;
@@ -154,11 +234,14 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
 }
 
 .subtitle {
-  margin: 0.15rem 0 0;
+  display: block;
+  margin-top: 0.3rem;
   font-size: 0.82rem;
+  font-weight: 400;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--cream-dim);
+  text-shadow: none;
 }
 
 .board {
@@ -264,8 +347,76 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
   color: var(--cream-dim);
 }
 
+.about {
+  max-width: 640px;
+  margin: 1rem auto 0;
+  text-align: left;
+}
+
+.intro {
+  margin: 0;
+  font-size: 0.72rem;
+  line-height: 1.55;
+  color: var(--cream-dim);
+  text-align: center;
+}
+
+.faq {
+  margin-top: 0.7rem;
+  font-size: 0.72rem;
+  color: var(--cream-dim);
+}
+
+.faq summary {
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.66rem;
+  color: var(--cream);
+}
+
+.faq summary:hover {
+  color: var(--brass-soft);
+}
+
+.faq dl {
+  margin: 0.6rem 0 0;
+}
+
+.faq dt {
+  font-weight: 700;
+  color: var(--cream);
+  margin-top: 0.55rem;
+}
+
+.faq dd {
+  margin: 0.2rem 0 0;
+  line-height: 1.5;
+}
+
+.ext-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.2rem;
+  margin-top: 0.8rem;
+  font-size: 0.68rem;
+}
+
+.ext-links a {
+  color: var(--cream-dim);
+  text-decoration-color: rgb(201 164 55 / 45%);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.ext-links a:hover {
+  color: var(--brass-soft);
+}
+
 .disclaimer {
-  margin: 0.35rem 0 0;
+  margin: 0.8rem 0 0;
   font-size: 0.64rem;
   color: #7d745c;
 }
