@@ -1,21 +1,122 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Iron Nest — Calculadora de Control de Fuego | Fire Control Calculator</title>
+    <title>Iron Nest Ballistic Calculator — Unofficial Fire Control Tool</title>
     <meta
       name="description"
-      content="Calculadora no oficial de control de fuego para Iron Nest: Heavy Turret Simulator. Azimut, alcance y cargas de pólvora a elevación al instante, con tarjetas de disparo para dos cañones. Unofficial fire control calculator for Iron Nest."
+      content="Unofficial ballistic calculator for IRON NEST: Heavy Turret Simulator. Azimuth, range and powder charges to gun elevation, dual-gun shot cards. También en español."
     />
+    <link rel="canonical" href="https://ironnest.stevenacz.com/" />
     <meta name="theme-color" content="#221c15" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Iron Nest — Fire Control Calculator" />
+    <meta property="og:site_name" content="Iron Nest Fire Control Calculator" />
+    <meta property="og:url" content="https://ironnest.stevenacz.com/" />
+    <meta property="og:title" content="Iron Nest Ballistic Calculator — Unofficial Fire Control Tool" />
     <meta
       property="og:description"
-      content="Azimuth, range and powder charges to elevation, instantly. Dual-gun shot cards, full keyboard control. Unofficial fan tool."
+      content="Azimuth, range and powder charges to gun elevation, instantly. Dual-gun shot cards, keyboard-first, EN/ES. Unofficial fan tool."
     />
+    <meta property="og:image" content="https://ironnest.stevenacz.com/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="es_ES" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Iron Nest Ballistic Calculator — Unofficial Fire Control Tool" />
+    <meta
+      name="twitter:description"
+      content="Azimuth, range and powder charges to gun elevation, instantly. Unofficial fan tool for IRON NEST: Heavy Turret Simulator."
+    />
+    <meta name="twitter:image" content="https://ironnest.stevenacz.com/og.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            "@id": "https://ironnest.stevenacz.com/#app",
+            "name": "Iron Nest — Fire Control Calculator",
+            "alternateName": [
+              "Iron Nest Ballistic Calculator",
+              "Calculadora Balística para Iron Nest"
+            ],
+            "url": "https://ironnest.stevenacz.com/",
+            "description": "Unofficial fan-made ballistic calculator for IRON NEST: Heavy Turret Simulator. Converts azimuth, range and powder charges into gun elevation, with shot cards for two guns.",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Any (web browser)",
+            "browserRequirements": "Requires JavaScript",
+            "inLanguage": ["en", "es"],
+            "isAccessibleForFree": true,
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+            "author": {
+              "@type": "Person",
+              "name": "Steven Coaila",
+              "url": "https://github.com/StevenACZ"
+            },
+            "sameAs": ["https://github.com/StevenACZ/iron-nest-calculator"],
+            "about": { "@id": "https://ironnest.stevenacz.com/#game" }
+          },
+          {
+            "@type": "VideoGame",
+            "@id": "https://ironnest.stevenacz.com/#game",
+            "name": "IRON NEST: Heavy Turret Simulator",
+            "url": "https://store.steampowered.com/app/2950790/IRON_NEST_Heavy_Turret_Simulator/",
+            "gamePlatform": "PC",
+            "author": [
+              { "@type": "Person", "name": "Nick Nieuwoudt" },
+              { "@type": "Person", "name": "Dominik Latos" }
+            ],
+            "sameAs": [
+              "https://store.steampowered.com/app/2950790/IRON_NEST_Heavy_Turret_Simulator/",
+              "https://en.wikipedia.org/wiki/Iron_Nest",
+              "https://www.wikidata.org/wiki/Q140290636",
+              "https://iron-nest.fandom.com/"
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://ironnest.stevenacz.com/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "How does the Iron Nest ballistic calculator work?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "It uses the in-game ballistic model: elevation in degrees equals distance in meters times 0.012 divided by the number of powder charges, capped at 60 degrees. Each charge extends maximum range by 5 km, up to 30 km with six charges. The tool always suggests the lowest charge that reaches the target."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is this an official IRON NEST tool?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. This is an unofficial, free, fan-made companion tool. It is not affiliated with or endorsed by the developers of IRON NEST: Heavy Turret Simulator."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is it free and does it store my data?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, it is completely free with no accounts and no tracking. Shot cards and volley history are stored locally in your browser only."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "¿Está disponible en español?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Sí. La calculadora es bilingüe: detecta el idioma del navegador y puedes cambiar entre español e inglés con un clic."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="app"></div>
