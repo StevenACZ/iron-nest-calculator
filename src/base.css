@@ -1,0 +1,149 @@
+:root {
+  --bg: #221c15;
+  --bg-deep: #191410;
+  --panel: #6e7f64;
+  --panel-dark: #55644c;
+  --panel-edge: #47543f;
+  --plate: #d8d2bd;
+  --plate-ink: #2b2a24;
+  --brass: #c9a437;
+  --brass-soft: #e2c463;
+  --brass-dark: #8a6d1f;
+  --red: #b5432f;
+  --red-bright: #d4553d;
+  --paper: #ece3cb;
+  --paper-shade: #d9cda9;
+  --paper-edge: #b5a67f;
+  --ink: #22201c;
+  --ink-soft: #4a453a;
+  --mint: #bfe8d0;
+  --mint-deep: #83c9a4;
+  --cream: #e8ddc2;
+  --cream-dim: #b3a686;
+  --ok: #4d7d43;
+  --font-mono: 'Courier New', Courier, monospace;
+  --font-stencil: 'Trebuchet MS', 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background:
+    radial-gradient(1200px 700px at 50% -10%, #322a1f 0%, var(--bg) 55%, var(--bg-deep) 100%);
+  color: var(--cream);
+  font-family: var(--font-mono);
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--brass);
+  color: var(--bg);
+}
+
+.plate-label {
+  display: inline-block;
+  background: linear-gradient(180deg, #e3ddc8, #c9c2ab);
+  color: var(--plate-ink);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.55rem;
+  border-radius: 3px;
+  border: 1px solid #9a927a;
+  box-shadow:
+    inset 0 1px 0 #f4efdd,
+    0 1px 2px rgb(0 0 0 / 45%);
+}
+
+.metal-panel {
+  position: relative;
+  background:
+    linear-gradient(160deg, #79896e 0%, var(--panel) 40%, var(--panel-dark) 100%);
+  border: 1px solid var(--panel-edge);
+  border-radius: 12px;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 14%),
+    inset 0 -2px 6px rgb(0 0 0 / 25%),
+    0 8px 22px rgb(0 0 0 / 45%);
+}
+
+.rivets::before,
+.rivets::after {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #d9d4c2, #6e6a58 65%, #3c392e);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 55%);
+}
+
+.rivets::before {
+  top: 8px;
+  left: 8px;
+}
+
+.rivets::after {
+  top: 8px;
+  right: 8px;
+}
+
+.rivets-bottom::before,
+.rivets-bottom::after {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #d9d4c2, #6e6a58 65%, #3c392e);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 55%);
+  bottom: 8px;
+}
+
+.rivets-bottom::before {
+  left: 8px;
+}
+
+.rivets-bottom::after {
+  right: 8px;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20%,
+  60% {
+    transform: translateX(-5px);
+  }
+
+  40%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+.shake {
+  animation: shake 0.35s ease;
+}
