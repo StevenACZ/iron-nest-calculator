@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import { cycleAssignMode, resetVolley, store, type AssignMode } from './lib/store.ts'
+import { cycleAssignMode, resetVolley, store, undoLastShot, type AssignMode } from './lib/store.ts'
 import { t, toggleLang } from './lib/i18n.ts'
 import CalculatorPanel from './components/CalculatorPanel.vue'
 import CannonColumn from './components/CannonColumn.vue'
@@ -19,7 +19,20 @@ function doReset(): void {
   calc.value?.focusAzimuth()
 }
 
+const isMac = /Mac|iP(hone|ad|od)/.test(navigator.platform || navigator.userAgent)
+
 function onKeydown(e: KeyboardEvent): void {
+  const undoCombo =
+    (isMac ? e.metaKey && !e.ctrlKey : e.ctrlKey && !e.metaKey) &&
+    !e.shiftKey &&
+    !e.altKey &&
+    e.key.toLowerCase() === 'z'
+  if (undoCombo) {
+    e.preventDefault()
+    const shot = undoLastShot()
+    if (shot) calc.value?.restoreShot(shot)
+    return
+  }
   if (e.metaKey || e.ctrlKey || e.altKey) return
   const key = e.key.toLowerCase()
   if (key === 'r') {

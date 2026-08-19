@@ -37,7 +37,8 @@ const messages = {
     clearHistory: 'Borrar historial',
     shots: 'disparos',
     shot: 'disparo',
-    hintKeys: 'Enter avanza y registra · R reinicia y guarda la tanda · C cambia el cañón destino',
+    hintKeys:
+      'Enter avanza y registra · Ctrl/⌘+Z deshace el último disparo · R reinicia y guarda la tanda · C cambia el cañón destino',
     hintDrag: 'Arrastra las tarjetas entre cañones',
     disclaimer:
       'Herramienta de fans no oficial para Iron Nest: Heavy Turret Simulator. Sin afiliación con sus creadores.',
@@ -93,7 +94,8 @@ const messages = {
     clearHistory: 'Clear history',
     shots: 'shots',
     shot: 'shot',
-    hintKeys: 'Enter advances and logs · R resets and saves the volley · C switches target gun',
+    hintKeys:
+      'Enter advances and logs · Ctrl/⌘+Z undoes the last shot · R resets and saves the volley · C switches target gun',
     hintDrag: 'Drag cards between guns',
     disclaimer:
       'Unofficial fan tool for Iron Nest: Heavy Turret Simulator. Not affiliated with its creators.',

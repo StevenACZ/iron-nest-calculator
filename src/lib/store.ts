@@ -117,6 +117,14 @@ export function registerShot(data: Omit<Shot, 'id' | 'gun'>): Shot | null {
   return shot
 }
 
+export function undoLastShot(): Shot | null {
+  const shot = store.shots.pop()
+  if (!shot) return null
+  const prev = store.shots[store.shots.length - 1]
+  store.lastGun = prev ? prev.gun : 2
+  return shot
+}
+
 export function removeShot(id: string): void {
   const i = store.shots.findIndex((s) => s.id === id)
   if (i !== -1) store.shots.splice(i, 1)

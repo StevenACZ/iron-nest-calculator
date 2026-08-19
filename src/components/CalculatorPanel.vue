@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 import {
   MAX_CHARGE,
   MAX_RANGE_KM,
@@ -13,7 +13,7 @@ import {
   normalizeAzimuth,
   type RoundType,
 } from '../lib/ballistics.ts'
-import { registerShot } from '../lib/store.ts'
+import { registerShot, type Shot } from '../lib/store.ts'
 import { t } from '../lib/i18n.ts'
 import AzimuthDial from './AzimuthDial.vue'
 import ElevationGauge from './ElevationGauge.vue'
@@ -80,10 +80,44 @@ function pickCharge(c: number): void {
   manualCharge.value = manualCharge.value === c ? null : c
 }
 
-function filterKeys(e: KeyboardEvent): void {
-  if (e.key.length === 1 && !/[\d.,]/.test(e.key) && !e.ctrlKey && !e.metaKey) {
-    e.preventDefault()
+const INPUT_RULES = {
+  az: { max: 360, intDigits: 3, decimals: 1 },
+  km: { max: MAX_RANGE_KM, intDigits: 2, decimals: 2 },
+} as const
+
+function validPartial(value: string, rule: { max: number; intDigits: number; decimals: number }) {
+  const re = new RegExp(`^\\d{0,${rule.intDigits}}(\\.\\d{0,${rule.decimals}})?$`)
+  if (!re.test(value)) return false
+  const n = parseFloat(value)
+  return Number.isNaN(n) || n <= rule.max
+}
+
+function handleNumKey(e: KeyboardEvent, kind: 'az' | 'km'): void {
+  if (e.ctrlKey || e.metaKey || e.altKey || e.key.length !== 1) return
+  e.preventDefault()
+  if (!/[\d.,]/.test(e.key)) return
+  const rule = INPUT_RULES[kind]
+  const target = kind === 'az' ? azimuthRaw : distanceRaw
+  const input = e.target as HTMLInputElement
+  const start = input.selectionStart ?? input.value.length
+  const end = input.selectionEnd ?? input.value.length
+  const base = input.value.slice(0, start) + input.value.slice(end)
+  const key = e.key === ',' ? '.' : e.key
+  const candidate = base.slice(0, start) + key + base.slice(start)
+  let next: string | null = null
+  let caret = start + 1
+  if (validPartial(candidate, rule)) {
+    next = candidate
+  } else if (key !== '.' && start === base.length && base !== '' && !base.includes('.')) {
+    const dotted = `${base}.${key}`
+    if (validPartial(dotted, rule)) {
+      next = dotted
+      caret = dotted.length
+    }
   }
+  if (next === null) return
+  target.value = next
+  void nextTick(() => input.setSelectionRange(caret, caret))
 }
 
 function focusAzimuth(): void {
@@ -130,9 +164,17 @@ function register(): void {
   focusAzimuth()
 }
 
+function restoreShot(shot: Shot): void {
+  azimuthRaw.value = String(parseFloat(shot.azimuth.toFixed(1)))
+  distanceRaw.value = String(parseFloat(shot.km.toFixed(2)))
+  manualCharge.value = shot.charge
+  roundType.value = shot.type
+  focusAzimuth()
+}
+
 onMounted(focusAzimuth)
 
-defineExpose({ focusAzimuth, register })
+defineExpose({ focusAzimuth, register, restoreShot })
 </script>
 
 <template>
@@ -152,7 +194,7 @@ defineExpose({ focusAzimuth, register })
             spellcheck="false"
             placeholder="000.0"
             enterkeyhint="next"
-            @keydown="filterKeys"
+            @keydown="handleNumKey($event, 'az')"
             @keydown.enter.prevent="focusDistance"
             @keydown.tab.prevent="focusDistance"
           />
@@ -179,7 +221,7 @@ defineExpose({ focusAzimuth, register })
             spellcheck="false"
             placeholder="00.00"
             enterkeyhint="done"
-            @keydown="filterKeys"
+            @keydown="handleNumKey($event, 'km')"
             @keydown.enter.prevent="register"
             @keydown.tab.prevent="focusAzimuth"
           />
