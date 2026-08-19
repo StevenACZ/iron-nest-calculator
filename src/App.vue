@@ -167,7 +167,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
 }
 
 .tagline {
-  margin: 0;
+  margin: 0.2rem 0 0.55rem;
   font-size: 0.66rem;
   letter-spacing: 0.38em;
   text-transform: uppercase;
@@ -182,7 +182,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
 }
 
 .title {
-  margin: 0.15rem 0 0;
+  margin: 0;
   font-weight: 400;
 }
 
@@ -190,7 +190,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
   display: inline-block;
   font-family: var(--font-display);
   font-size: clamp(2.1rem, 5.5vw, 3rem);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   line-height: 1;
   color: var(--banner-ink);
@@ -260,7 +260,8 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
 
 .subtitle {
   display: block;
-  margin-top: 0.3rem;
+  margin-top: 0.65rem;
+  margin-bottom: 0.2rem;
   font-size: 0.82rem;
   font-weight: 400;
   letter-spacing: 0.28em;
