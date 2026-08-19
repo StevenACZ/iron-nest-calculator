@@ -1,3 +1,27 @@
+@font-face {
+  font-family: 'Courier Prime';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/courier-prime-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Courier Prime';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/courier-prime-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Squada One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/squada-one-400.woff2') format('woff2');
+}
+
 :root {
   --bg: #221c15;
   --bg-deep: #191410;
@@ -21,8 +45,11 @@
   --cream: #e8ddc2;
   --cream-dim: #b3a686;
   --ok: #4d7d43;
-  --font-mono: 'Courier New', Courier, monospace;
-  --font-stencil: 'Trebuchet MS', 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
+  --font-mono: 'Courier Prime', 'Courier New', Courier, monospace;
+  --font-display: 'Squada One', 'Arial Narrow', 'Trebuchet MS', sans-serif;
+  --banner-red: #e03a26;
+  --banner-red-deep: #b8271a;
+  --banner-ink: #191b24;
 }
 
 * {

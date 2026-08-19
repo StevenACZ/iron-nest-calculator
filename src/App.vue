@@ -56,7 +56,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
       <p class="tagline">{{ t('tagline') }}</p>
       <div class="title-row">
         <h1 class="title">
-          Iron Nest
+          <span class="title-banner">Iron Nest</span>
           <span class="subtitle">{{ t('subtitle') }}</span>
         </h1>
         <div class="header-links">
@@ -182,16 +182,28 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
 }
 
 .title {
-  margin: 0.1rem 0 0;
-  font-family: var(--font-mono);
-  font-size: clamp(1.9rem, 5vw, 2.7rem);
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  margin: 0.15rem 0 0;
+  font-weight: 400;
+}
+
+.title-banner {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 5.5vw, 3rem);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--brass-soft);
-  text-shadow:
-    0 0 22px rgb(201 164 55 / 30%),
-    0 2px 3px rgb(0 0 0 / 65%);
+  line-height: 1;
+  color: var(--banner-ink);
+  background:
+    radial-gradient(120% 160% at 50% 115%, #f4593f 0%, transparent 55%),
+    linear-gradient(180deg, var(--banner-red), var(--banner-red-deep));
+  padding: 0.14em 0.5em 0.16em;
+  border-radius: 6px;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 22%),
+    inset 0 -2px 5px rgb(0 0 0 / 25%),
+    0 4px 14px rgb(0 0 0 / 45%);
+  text-shadow: 0 1px 0 rgb(255 255 255 / 12%);
 }
 
 .header-links {

@@ -7,7 +7,6 @@ import {
   ROUND_TYPES,
   elevationDeg,
   formatElevation,
-  formatMeters,
   isChargeValid,
   lowestValidCharge,
   normalizeAzimuth,
@@ -17,6 +16,7 @@ import { registerShot, type Shot } from '../lib/store.ts'
 import { t } from '../lib/i18n.ts'
 import AzimuthDial from './AzimuthDial.vue'
 import ElevationGauge from './ElevationGauge.vue'
+import ShellIcon from './ShellIcon.vue'
 
 const azimuthRaw = ref('')
 const distanceRaw = ref('')
@@ -25,6 +25,7 @@ const roundType = ref<RoundType>('HE')
 
 const azimuthEl = ref<HTMLInputElement | null>(null)
 const distanceEl = ref<HTMLInputElement | null>(null)
+const chargesEl = ref<HTMLElement | null>(null)
 const panelEl = ref<HTMLElement | null>(null)
 const flash = ref(false)
 
@@ -130,6 +131,42 @@ function focusDistance(): void {
   distanceEl.value?.select()
 }
 
+function focusCharges(): void {
+  chargesEl.value?.focus()
+}
+
+function stepCharge(dir: 1 | -1): void {
+  const valid = charges.filter((c) => !chargeInvalid(c))
+  if (valid.length === 0) return
+  const idx = valid.indexOf(effectiveCharge.value)
+  let next: number
+  if (idx === -1) {
+    next = dir === 1 ? valid[0]! : valid[valid.length - 1]!
+  } else {
+    next = valid[Math.min(Math.max(idx + dir, 0), valid.length - 1)]!
+  }
+  manualCharge.value = next === autoCharge.value ? null : next
+}
+
+function handleChargeKey(e: KeyboardEvent): void {
+  if (e.metaKey || e.ctrlKey || e.altKey) return
+  const key = e.key.toLowerCase()
+  if (key === 'arrowright' || key === 'e') {
+    e.preventDefault()
+    stepCharge(1)
+  } else if (key === 'arrowleft' || key === 'q') {
+    e.preventDefault()
+    stepCharge(-1)
+  } else if (key === 'enter') {
+    e.preventDefault()
+    register()
+  } else if (key === 'tab') {
+    e.preventDefault()
+    if (e.shiftKey) focusDistance()
+    else focusAzimuth()
+  }
+}
+
 function shakePanel(): void {
   const el = panelEl.value
   if (!el) return
@@ -196,7 +233,8 @@ defineExpose({ focusAzimuth, register, restoreShot })
             enterkeyhint="next"
             @keydown="handleNumKey($event, 'az')"
             @keydown.enter.prevent="focusDistance"
-            @keydown.tab.prevent="focusDistance"
+            @keydown.tab.exact.prevent="focusDistance"
+            @keydown.shift.tab.prevent="focusCharges"
           />
           <span class="unit">°</span>
         </div>
@@ -223,21 +261,24 @@ defineExpose({ focusAzimuth, register, restoreShot })
             enterkeyhint="done"
             @keydown="handleNumKey($event, 'km')"
             @keydown.enter.prevent="register"
-            @keydown.tab.prevent="focusAzimuth"
+            @keydown.tab.exact.prevent="focusCharges"
+            @keydown.shift.tab.prevent="focusAzimuth"
           />
           <span class="unit">{{ t('km') }}</span>
         </div>
       </div>
-      <div class="meters-hint" :class="{ 'hint-bad': outOfRange }">
-        <template v-if="outOfRange">{{ t('outOfRange') }}</template>
-        <template v-else-if="km !== null">= {{ formatMeters(km) }} m</template>
-        <template v-else>&nbsp;</template>
-      </div>
+      <div v-if="outOfRange" class="meters-hint hint-bad">{{ t('outOfRange') }}</div>
     </div>
 
     <div class="field">
       <span class="plate-label">{{ t('charges') }}</span>
-      <div class="charge-row">
+      <div
+        ref="chargesEl"
+        class="charge-row"
+        role="radiogroup"
+        tabindex="0"
+        @keydown="handleChargeKey"
+      >
         <button
           v-for="c in charges"
           :key="c"
@@ -271,7 +312,8 @@ defineExpose({ focusAzimuth, register, restoreShot })
           tabindex="-1"
           @click="roundType = rt"
         >
-          {{ rt }}
+          <ShellIcon :type="rt" />
+          <span>{{ rt }}</span>
         </button>
       </div>
     </div>
@@ -380,6 +422,13 @@ defineExpose({ focusAzimuth, register, restoreShot })
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  border-radius: 8px;
+  outline: none;
+}
+
+.charge-row:focus {
+  outline: 2px solid var(--brass);
+  outline-offset: 4px;
 }
 
 .charge-btn {
@@ -442,6 +491,10 @@ defineExpose({ focusAzimuth, register, restoreShot })
 .type-btn {
   flex: 1;
   min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.28rem;
   border-radius: 6px;
   border: 1.5px solid transparent;
   font-family: var(--font-mono);
