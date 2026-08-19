@@ -34,7 +34,7 @@ export function normalizeAzimuth(deg: number): number {
 }
 
 export function formatAzimuth(deg: number): string {
-  return deg.toFixed(1).padStart(5, '0')
+  return deg.toFixed(2).padStart(6, '0')
 }
 
 export function formatElevation(deg: number): string {

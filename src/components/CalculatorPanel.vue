@@ -81,7 +81,7 @@ function pickCharge(c: number): void {
 }
 
 const INPUT_RULES = {
-  az: { max: 360, intDigits: 3, decimals: 1 },
+  az: { max: 360, intDigits: 3, decimals: 2 },
   km: { max: MAX_RANGE_KM, intDigits: 2, decimals: 2 },
 } as const
 
@@ -165,7 +165,7 @@ function register(): void {
 }
 
 function restoreShot(shot: Shot): void {
-  azimuthRaw.value = String(parseFloat(shot.azimuth.toFixed(1)))
+  azimuthRaw.value = String(parseFloat(shot.azimuth.toFixed(2)))
   distanceRaw.value = String(parseFloat(shot.km.toFixed(2)))
   manualCharge.value = shot.charge
   roundType.value = shot.type
@@ -192,7 +192,7 @@ defineExpose({ focusAzimuth, register, restoreShot })
             inputmode="decimal"
             autocomplete="off"
             spellcheck="false"
-            placeholder="000.0"
+            placeholder="000.00"
             enterkeyhint="next"
             @keydown="handleNumKey($event, 'az')"
             @keydown.enter.prevent="focusDistance"
