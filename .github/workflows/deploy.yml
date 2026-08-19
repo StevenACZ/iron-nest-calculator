@@ -1,0 +1,153 @@
+name: Deploy Iron Nest Calculator
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "31 8 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, Linux, X64, prod-lan, ironnest]
+    timeout-minutes: 20
+    concurrency:
+      group: deploy-${{ github.repository }}
+      cancel-in-progress: false
+    env:
+      SSH_HOST: ${{ vars.SSH_HOST }}
+      SSH_USER: ${{ vars.SSH_USER }}
+      SSH_PORT: ${{ vars.SSH_PORT }}
+      SSH_KNOWN_HOSTS: ${{ vars.SSH_KNOWN_HOSTS }}
+      LOCAL_SSH_KEY: ${{ vars.LOCAL_SSH_KEY_PATH }}
+      DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+      DEPLOY_PATH_PREFIX: ${{ vars.DEPLOY_PATH_PREFIX }}
+      PRODUCTION_URL: https://ironnest.stevenacz.com
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build site
+        run: bun run build
+
+      - name: Dependency audit
+        shell: bash
+        run: |
+          if bun audit; then
+            exit 0
+          fi
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            exit 1
+          fi
+          echo "::warning title=Dependency audit failing::Scheduled rebuild continued with a failing dependency audit; sweep the repo."
+
+      - name: Validate deployment configuration
+        id: deploy_config
+        shell: bash
+        run: |
+          ready=true
+
+          for variable in SSH_HOST SSH_USER SSH_KNOWN_HOSTS LOCAL_SSH_KEY DEPLOY_PATH DEPLOY_PATH_PREFIX; do
+            if [ -z "${!variable}" ]; then
+              echo "Missing repository variable: $variable"
+              ready=false
+            fi
+          done
+
+          if [ -n "$LOCAL_SSH_KEY" ] && [ ! -f "$LOCAL_SSH_KEY" ]; then
+            echo "Configured deploy key file is unavailable."
+            ready=false
+          fi
+
+          if [ -n "$SSH_PORT" ] && ! [[ "$SSH_PORT" =~ ^[0-9]+$ ]]; then
+            echo "SSH_PORT must be numeric."
+            exit 1
+          fi
+
+          if [ -n "$DEPLOY_PATH" ]; then
+            case "$DEPLOY_PATH" in
+              /|*..*|*[!A-Za-z0-9_./-]*)
+                echo "DEPLOY_PATH is unsafe."
+                exit 1
+                ;;
+            esac
+          fi
+
+          if [ -n "$DEPLOY_PATH" ] && [ -n "$DEPLOY_PATH_PREFIX" ]; then
+            case "$DEPLOY_PATH" in
+              "$DEPLOY_PATH_PREFIX"/*) : ;;
+              *)
+                echo "DEPLOY_PATH must be below DEPLOY_PATH_PREFIX."
+                exit 1
+                ;;
+            esac
+          fi
+
+          echo "ready=$ready" >> "$GITHUB_OUTPUT"
+
+      - name: Prepare SSH
+        if: steps.deploy_config.outputs.ready == 'true'
+        shell: bash
+        run: |
+          install -d -m 700 ~/.ssh
+          install -m 600 "$LOCAL_SSH_KEY" ~/.ssh/deploy_key
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Deploy static output
+        if: steps.deploy_config.outputs.ready == 'true'
+        shell: bash
+        run: |
+          port="${SSH_PORT:-22}"
+          ssh -i ~/.ssh/deploy_key -p "$port" "$SSH_USER@$SSH_HOST" \
+            "mkdir -p '$DEPLOY_PATH' && find '$DEPLOY_PATH' -type d -name '.~tmp~' -prune -exec rm -rf {} +"
+          rsync -avz --delete --delete-delay --delay-updates \
+            --chmod=D755,F644 \
+            -e "ssh -i ~/.ssh/deploy_key -p $port" \
+            dist/ \
+            "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/"
+
+      - name: Purge rsync partial dirs
+        if: always() && steps.deploy_config.outputs.ready == 'true'
+        shell: bash
+        run: |
+          port="${SSH_PORT:-22}"
+          ssh -i ~/.ssh/deploy_key -p "$port" "$SSH_USER@$SSH_HOST" \
+            "mkdir -p '$DEPLOY_PATH' && find '$DEPLOY_PATH' -type d -name '.~tmp~' -prune -exec rm -rf {} +"
+
+      - name: Validate deployed site
+        if: steps.deploy_config.outputs.ready == 'true'
+        shell: bash
+        run: |
+          curl -fsSL "$PRODUCTION_URL/" > "$RUNNER_TEMP/ironnest.html"
+          grep -q '<title>Iron Nest Ballistic Calculator' "$RUNNER_TEMP/ironnest.html"
+          grep -q 'rel="canonical" href="https://ironnest.stevenacz.com/"' "$RUNNER_TEMP/ironnest.html"
+          grep -q 'application/ld+json' "$RUNNER_TEMP/ironnest.html"
+
+          curl -fsSL "$PRODUCTION_URL/robots.txt" > "$RUNNER_TEMP/ironnest-robots.txt"
+          sitemap_url=$(awk 'tolower($1) == "sitemap:" { print $2; exit }' "$RUNNER_TEMP/ironnest-robots.txt" | tr -d '\r')
+          test "$sitemap_url" = "$PRODUCTION_URL/sitemap.xml"
+
+          curl -fsSL "$sitemap_url" > "$RUNNER_TEMP/ironnest-sitemap.xml"
+          grep -q '<urlset' "$RUNNER_TEMP/ironnest-sitemap.xml"
+          grep -q 'ironnest.stevenacz.com' "$RUNNER_TEMP/ironnest-sitemap.xml"
+
+          curl -fsSL "$PRODUCTION_URL/og.png" -o "$RUNNER_TEMP/ironnest-og.png"
+          test -s "$RUNNER_TEMP/ironnest-og.png"
+          curl -fsSL "$PRODUCTION_URL/favicon.svg" -o "$RUNNER_TEMP/ironnest-favicon.svg"
+          test -s "$RUNNER_TEMP/ironnest-favicon.svg"
+
+          headers=$(curl -fsSIL "$PRODUCTION_URL/" | tr -d '\r')
+          grep -qi '^strict-transport-security:' <<< "$headers"
+          grep -qi '^x-content-type-options: nosniff' <<< "$headers"
+          grep -qi '^referrer-policy:' <<< "$headers"
+
+      - name: Deployment skipped
+        if: steps.deploy_config.outputs.ready != 'true'
+        run: echo "Build passed; configure the deployment repository variables to publish."
