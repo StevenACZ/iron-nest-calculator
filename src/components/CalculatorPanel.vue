@@ -21,7 +21,7 @@ import ShellIcon from './ShellIcon.vue'
 const azimuthRaw = ref('')
 const distanceRaw = ref('')
 const manualCharge = ref<number | null>(null)
-const roundType = ref<RoundType>('HE')
+const roundType = ref<RoundType>('EMPT')
 
 const azimuthEl = ref<HTMLInputElement | null>(null)
 const distanceEl = ref<HTMLInputElement | null>(null)
