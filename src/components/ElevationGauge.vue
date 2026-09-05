@@ -31,7 +31,12 @@ const needleRotation = computed(() => {
 
 <template>
   <svg viewBox="0 0 160 96" class="gauge" role="img" aria-label="Elevation gauge">
-    <path :d="arcPath" fill="#3f3a2c" transform="translate(0 -2) scale(1.06)" transform-origin="80 86" />
+    <path
+      :d="arcPath"
+      fill="#3f3a2c"
+      transform="translate(0 -2) scale(1.06)"
+      transform-origin="80 86"
+    />
     <path :d="arcPath" fill="var(--brass)" transform="scale(1.03)" transform-origin="80 86" />
     <path :d="arcPath" fill="var(--mint)" />
     <g v-for="tick in ticks" :key="tick">

@@ -7,16 +7,28 @@
     "dev": "vite",
     "build": "vite build",
     "typecheck": "vue-tsc --noEmit",
-    "verify": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "verify": "bun run format:check && bun run typecheck && bun run build && bun run verify:seo && bun audit",
+    "preview": "vite preview",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "verify:seo": "node scripts/verify-seo.mjs"
   },
   "dependencies": {
-    "vue": "^3.5.18"
+    "vue": "^3.5.42"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.1",
-    "typescript": "~5.8.3",
-    "vite": "^7.1.2",
-    "vue-tsc": "^3.0.5"
+    "@vitejs/plugin-vue": "^6.0.8",
+    "typescript": "^6.0.3",
+    "vite": "^8.2.2",
+    "vue-tsc": "^3.3.11",
+    "prettier": "^3.9.6"
+  },
+  "packageManager": "bun@1.4.1",
+  "engines": {
+    "node": ">=22.19.0",
+    "bun": ">=1.4.1"
+  },
+  "overrides": {
+    "nanoid": "3.3.18"
   }
 }

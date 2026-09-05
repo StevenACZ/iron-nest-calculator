@@ -28,10 +28,7 @@ defineProps<{ type: RoundType }>()
       <path stroke="currentColor" stroke-width="1.2" d="M5.2 4.4h5.6M6.1 7.6h3.8M7 10.8h2" />
     </template>
     <template v-else-if="type === 'STAR'">
-      <path
-        fill="currentColor"
-        d="M8 1 9.4 4.6 13 6 9.4 7.4 8 11 6.6 7.4 3 6 6.6 4.6Z"
-      />
+      <path fill="currentColor" d="M8 1 9.4 4.6 13 6 9.4 7.4 8 11 6.6 7.4 3 6 6.6 4.6Z" />
       <path
         stroke="currentColor"
         stroke-width="1.5"

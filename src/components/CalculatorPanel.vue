@@ -25,7 +25,6 @@ const roundType = ref<RoundType>('EMPT')
 
 const azimuthEl = ref<HTMLInputElement | null>(null)
 const distanceEl = ref<HTMLInputElement | null>(null)
-const chargesEl = ref<HTMLElement | null>(null)
 const panelEl = ref<HTMLElement | null>(null)
 const flash = ref(false)
 
@@ -131,10 +130,6 @@ function focusDistance(): void {
   distanceEl.value?.select()
 }
 
-function focusCharges(): void {
-  chargesEl.value?.focus()
-}
-
 function stepCharge(dir: 1 | -1): void {
   const valid = charges.filter((c) => !chargeInvalid(c))
   if (valid.length === 0) return
@@ -157,13 +152,6 @@ function handleChargeKey(e: KeyboardEvent): void {
   } else if (key === 'arrowleft' || key === 'q') {
     e.preventDefault()
     stepCharge(-1)
-  } else if (key === 'enter') {
-    e.preventDefault()
-    register()
-  } else if (key === 'tab') {
-    e.preventDefault()
-    if (e.shiftKey) focusDistance()
-    else focusAzimuth()
   }
 }
 
@@ -233,8 +221,6 @@ defineExpose({ focusAzimuth, register, restoreShot })
             enterkeyhint="next"
             @keydown="handleNumKey($event, 'az')"
             @keydown.enter.prevent="focusDistance"
-            @keydown.tab.exact.prevent="focusDistance"
-            @keydown.shift.tab.prevent="focusCharges"
           />
           <span class="unit">°</span>
         </div>
@@ -261,8 +247,6 @@ defineExpose({ focusAzimuth, register, restoreShot })
             enterkeyhint="done"
             @keydown="handleNumKey($event, 'km')"
             @keydown.enter.prevent="register"
-            @keydown.tab.exact.prevent="focusCharges"
-            @keydown.shift.tab.prevent="focusAzimuth"
           />
           <span class="unit">{{ t('km') }}</span>
         </div>
@@ -272,13 +256,7 @@ defineExpose({ focusAzimuth, register, restoreShot })
 
     <div class="field">
       <span class="plate-label">{{ t('charges') }}</span>
-      <div
-        ref="chargesEl"
-        class="charge-row"
-        role="radiogroup"
-        tabindex="0"
-        @keydown="handleChargeKey"
-      >
+      <div class="charge-row" role="group" :aria-label="t('charges')" @keydown="handleChargeKey">
         <button
           v-for="c in charges"
           :key="c"
@@ -289,7 +267,7 @@ defineExpose({ focusAzimuth, register, restoreShot })
             invalid: chargeInvalid(c),
           }"
           :disabled="chargeInvalid(c)"
-          tabindex="-1"
+          :aria-pressed="c === effectiveCharge"
           @click="pickCharge(c)"
         >
           {{ c }}
@@ -302,14 +280,14 @@ defineExpose({ focusAzimuth, register, restoreShot })
 
     <div class="field">
       <span class="plate-label">{{ t('roundType') }}</span>
-      <div class="type-row">
+      <div class="type-row" role="group" :aria-label="t('roundType')">
         <button
           v-for="rt in ROUND_TYPES"
           :key="rt"
           type="button"
           class="type-btn"
           :class="['type-' + rt.toLowerCase(), { active: rt === roundType }]"
-          tabindex="-1"
+          :aria-pressed="rt === roundType"
           @click="roundType = rt"
         >
           <ShellIcon :type="rt" />

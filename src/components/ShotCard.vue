@@ -44,7 +44,16 @@ function onDragStart(e: DragEvent) {
 
       <svg viewBox="0 0 130 26" class="shell" aria-hidden="true">
         <polygon points="2,13 24,4 24,22" :fill="typeColor" stroke="#22201c" stroke-width="1.5" />
-        <rect x="24" y="4" width="44" height="18" rx="2" fill="#efe8d2" stroke="#22201c" stroke-width="1.5" />
+        <rect
+          x="24"
+          y="4"
+          width="44"
+          height="18"
+          rx="2"
+          fill="#efe8d2"
+          stroke="#22201c"
+          stroke-width="1.5"
+        />
         <text x="46" y="17.5" text-anchor="middle" class="shell-type">{{ shot.type }}</text>
         <path d="M 76 2 L 73 2 L 73 24 L 76 24" fill="none" stroke="#22201c" stroke-width="1.8" />
         <text x="84" y="18" text-anchor="middle" class="shell-charge">{{ shot.charge }}</text>
@@ -68,12 +77,34 @@ function onDragStart(e: DragEvent) {
           @click="emit('remove', shot.id)"
         >
           <svg viewBox="0 0 16 16" aria-hidden="true">
-            <line x1="2" y1="2" x2="14" y2="14" stroke="#b5432f" stroke-width="3" stroke-linecap="round" />
-            <line x1="14" y1="2" x2="2" y2="14" stroke="#b5432f" stroke-width="3" stroke-linecap="round" />
+            <line
+              x1="2"
+              y1="2"
+              x2="14"
+              y2="14"
+              stroke="#b5432f"
+              stroke-width="3"
+              stroke-linecap="round"
+            />
+            <line
+              x1="14"
+              y1="2"
+              x2="2"
+              y2="14"
+              stroke="#b5432f"
+              stroke-width="3"
+              stroke-linecap="round"
+            />
           </svg>
         </button>
         <svg viewBox="0 0 16 16" class="card-check" aria-hidden="true">
-          <path d="M 2 9 L 6 13 L 14 3" fill="none" stroke="#4d7d43" stroke-width="2.5" stroke-linecap="round" />
+          <path
+            d="M 2 9 L 6 13 L 14 3"
+            fill="none"
+            stroke="#4d7d43"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
         </svg>
       </div>
     </div>
@@ -81,11 +112,39 @@ function onDragStart(e: DragEvent) {
     <div class="card-values">
       <div class="value-block">
         <svg viewBox="0 0 64 34" class="value-icon" aria-hidden="true">
-          <line x1="2" y1="30" x2="62" y2="30" stroke="#57523f" stroke-width="1.5" stroke-dasharray="3 2" />
-          <path d="M 19 24 L 15 27 L 14 30" fill="none" stroke="#22201c" stroke-width="2.5" stroke-linecap="round" />
-          <path d="M 29 24 L 32 27 L 33 30" fill="none" stroke="#22201c" stroke-width="2.5" stroke-linecap="round" />
+          <line
+            x1="2"
+            y1="30"
+            x2="62"
+            y2="30"
+            stroke="#57523f"
+            stroke-width="1.5"
+            stroke-dasharray="3 2"
+          />
+          <path
+            d="M 19 24 L 15 27 L 14 30"
+            fill="none"
+            stroke="#22201c"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+          <path
+            d="M 29 24 L 32 27 L 33 30"
+            fill="none"
+            stroke="#22201c"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
           <polygon points="11,17 29,15 35,18 34,24 12,24" fill="#22201c" />
-          <line x1="31" y1="18" x2="47" y2="6" stroke="#22201c" stroke-width="3.5" stroke-linecap="round" />
+          <line
+            x1="31"
+            y1="18"
+            x2="47"
+            y2="6"
+            stroke="#22201c"
+            stroke-width="3.5"
+            stroke-linecap="round"
+          />
           <circle cx="31" cy="18" r="2.2" fill="#c9a437" />
           <line x1="55" y1="26" x2="55" y2="11" stroke="#b5432f" stroke-width="2.5" />
           <polygon points="55,4 50.5,12 59.5,12" fill="#b5432f" />
@@ -95,15 +154,41 @@ function onDragStart(e: DragEvent) {
 
       <div class="value-block">
         <svg viewBox="0 0 64 34" class="value-icon" aria-hidden="true">
-          <circle cx="32" cy="17" r="13" fill="none" stroke="#57523f" stroke-width="1.3" stroke-dasharray="2.5 2.2" />
+          <circle
+            cx="32"
+            cy="17"
+            r="13"
+            fill="none"
+            stroke="#57523f"
+            stroke-width="1.3"
+            stroke-dasharray="2.5 2.2"
+          />
           <rect x="26.5" y="14" width="11" height="9" rx="2" fill="#22201c" />
           <line x1="30" y1="15" x2="30" y2="5" stroke="#22201c" stroke-width="2.4" />
           <line x1="34" y1="15" x2="34" y2="5" stroke="#22201c" stroke-width="2.4" />
-          <path d="M 27.5 5.5 A 11 11 0 0 0 20.5 11" fill="none" stroke="#b5432f" stroke-width="2.4" />
+          <path
+            d="M 27.5 5.5 A 11 11 0 0 0 20.5 11"
+            fill="none"
+            stroke="#b5432f"
+            stroke-width="2.4"
+          />
           <polygon points="17.5,15.5 19.2,7.8 24.8,11.8" fill="#b5432f" />
-          <path d="M 36.5 5.5 A 11 11 0 0 1 43.5 11" fill="none" stroke="#b5432f" stroke-width="2.4" />
+          <path
+            d="M 36.5 5.5 A 11 11 0 0 1 43.5 11"
+            fill="none"
+            stroke="#b5432f"
+            stroke-width="2.4"
+          />
           <polygon points="46.5,15.5 44.8,7.8 39.2,11.8" fill="#b5432f" />
-          <line x1="2" y1="30" x2="62" y2="30" stroke="#57523f" stroke-width="1.5" stroke-dasharray="3 2" />
+          <line
+            x1="2"
+            y1="30"
+            x2="62"
+            y2="30"
+            stroke="#57523f"
+            stroke-width="1.5"
+            stroke-dasharray="3 2"
+          />
         </svg>
         <div class="value-num">{{ formatAzimuth(shot.azimuth) }}°</div>
       </div>

@@ -63,8 +63,12 @@ body {
 }
 
 body {
-  background:
-    radial-gradient(1200px 700px at 50% -10%, #322a1f 0%, var(--bg) 55%, var(--bg-deep) 100%);
+  background: radial-gradient(
+    1200px 700px at 50% -10%,
+    #322a1f 0%,
+    var(--bg) 55%,
+    var(--bg-deep) 100%
+  );
   color: var(--cream);
   font-family: var(--font-mono);
   min-height: 100vh;
@@ -103,8 +107,7 @@ input {
 
 .metal-panel {
   position: relative;
-  background:
-    linear-gradient(160deg, #79896e 0%, var(--panel) 40%, var(--panel-dark) 100%);
+  background: linear-gradient(160deg, #79896e 0%, var(--panel) 40%, var(--panel-dark) 100%);
   border: 1px solid var(--panel-edge);
   border-radius: 12px;
   box-shadow:

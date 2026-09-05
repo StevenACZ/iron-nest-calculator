@@ -32,7 +32,7 @@ ballistic machine.
 - **Volley history** — reset archives the board as a volley inside the current
   match; matches and volleys persist locally in the browser.
 - **Keyboard-first** — `Enter` advances azimuth → distance → logs the shot,
-  `Tab` jumps between azimuth and distance, `R` resets and saves the volley,
+  `Tab` and `Shift+Tab` move through every control, `R` resets and saves the volley,
   `C` switches the target gun, `Esc` returns to the azimuth field. No mouse
   needed.
 - **English / Spanish**, no accounts, no tracking, fully static.
@@ -40,14 +40,14 @@ ballistic machine.
 ## Development
 
 ```sh
-npm install
-npm run dev       # local dev server
-npm run verify    # type-check + production build to dist/
-npm run build     # production build only
-npm run preview   # serve the production build
+bun install --frozen-lockfile
+bun run dev       # local dev server
+bun run verify    # format + type-check + build + SEO + dependency audit
+bun run build     # production build only
+bun run preview   # serve the production build
 ```
 
-Vue 3 + Vite + TypeScript, zero runtime dependencies beyond Vue. All artwork
+Requires Bun 1.4.1 and Node.js 22.19 or newer. Vue 3 + Vite + TypeScript, zero runtime dependencies beyond Vue. All artwork
 is hand-made inline SVG.
 
 ## Credits
@@ -65,3 +65,15 @@ is hand-made inline SVG.
 ## License
 
 [MIT](LICENSE)
+
+## Repository structure
+
+- `src/components/`: calculator, shot cards, history and SVG instruments.
+- `src/lib/ballistics.ts`: the fictional game's calculation rules.
+- `src/lib/store.ts`: browser-local matches and volleys.
+- `src/lib/i18n.ts`: English and Spanish interface copy.
+- `scripts/verify-seo.mjs`: generated metadata, sitemap and asset checks.
+
+`bun.lock` is the only dependency lockfile. Run `bun run format` and `bun run verify` before a change is published. Production builds are static; no server account or database is required. The deployment workflow verifies the public homepage and sitemap after publishing.
+
+Use Q/E or the arrow keys while a charge button is focused to adjust the charge. Standard Tab navigation remains available to leave the calculator, select ammunition, change language and open history. All calculations are for the video game only.

@@ -8,9 +8,7 @@ const open = ref(false)
 
 const orderedMatches = computed(() => [...store.matches].sort((a, b) => b.n - a.n))
 
-const totalVolleys = computed(() =>
-  store.matches.reduce((acc, m) => acc + m.volleys.length, 0),
-)
+const totalVolleys = computed(() => store.matches.reduce((acc, m) => acc + m.volleys.length, 0))
 
 function fmtDate(iso: string): string {
   return new Date(iso).toLocaleString(lang.value === 'es' ? 'es-PE' : 'en-US', {
@@ -24,7 +22,13 @@ function fmtDate(iso: string): string {
 
 <template>
   <section class="history metal-panel rivets">
-    <button type="button" class="history-head" @click="open = !open">
+    <button
+      type="button"
+      class="history-head"
+      :aria-expanded="open"
+      aria-controls="history-content"
+      @click="open = !open"
+    >
       <span class="plate-label">{{ t('history') }}</span>
       <span class="history-meta">
         {{ t('match') }} {{ store.currentMatch }} · {{ t('volley') }} {{ store.currentVolley }}
@@ -33,7 +37,7 @@ function fmtDate(iso: string): string {
     </button>
 
     <transition name="unfold">
-      <div v-if="open" class="history-body">
+      <div v-if="open" id="history-content" class="history-body">
         <div class="history-actions">
           <button type="button" class="ghost-btn" @click="closeMatch">
             {{ t('closeMatch') }}

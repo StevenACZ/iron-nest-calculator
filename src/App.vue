@@ -93,6 +93,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
               type="button"
               class="mode-chip"
               :class="{ active: store.assignMode === mode.id }"
+              :aria-pressed="store.assignMode === mode.id"
               @click="store.assignMode = mode.id"
             >
               {{ mode.label() }}
@@ -138,7 +139,11 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
           >
             {{ t('linkSteam') }}
           </a>
-          <a href="https://github.com/StevenACZ/iron-nest-calculator" target="_blank" rel="noopener">
+          <a
+            href="https://github.com/StevenACZ/iron-nest-calculator"
+            target="_blank"
+            rel="noopener"
+          >
             {{ t('linkGithub') }}
           </a>
           <a href="https://iron-nest.fandom.com/" target="_blank" rel="noopener">
