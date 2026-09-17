@@ -116,41 +116,6 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
 
     <footer class="foot">
       <p class="hints">{{ t('hintKeys') }} · {{ t('hintDrag') }}</p>
-      <section class="about">
-        <p class="intro">{{ t('intro') }}</p>
-        <details class="faq">
-          <summary>{{ t('faqTitle') }}</summary>
-          <dl>
-            <dt>{{ t('faq1q') }}</dt>
-            <dd>{{ t('faq1a') }}</dd>
-            <dt>{{ t('faq2q') }}</dt>
-            <dd>{{ t('faq2a') }}</dd>
-            <dt>{{ t('faq3q') }}</dt>
-            <dd>{{ t('faq3a') }}</dd>
-            <dt>{{ t('faq4q') }}</dt>
-            <dd>{{ t('faq4a') }}</dd>
-          </dl>
-        </details>
-        <nav class="ext-links">
-          <a
-            href="https://store.steampowered.com/app/2950790/IRON_NEST_Heavy_Turret_Simulator/"
-            target="_blank"
-            rel="noopener"
-          >
-            {{ t('linkSteam') }}
-          </a>
-          <a
-            href="https://github.com/StevenACZ/iron-nest-calculator"
-            target="_blank"
-            rel="noopener"
-          >
-            {{ t('linkGithub') }}
-          </a>
-          <a href="https://iron-nest.fandom.com/" target="_blank" rel="noopener">
-            {{ t('linkWiki') }}
-          </a>
-        </nav>
-      </section>
       <p class="disclaimer">{{ t('disclaimer') }}</p>
     </footer>
   </div>
@@ -376,74 +341,6 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
   font-size: 0.7rem;
   letter-spacing: 0.06em;
   color: var(--cream-dim);
-}
-
-.about {
-  max-width: 640px;
-  margin: 1rem auto 0;
-  text-align: left;
-}
-
-.intro {
-  margin: 0;
-  font-size: 0.72rem;
-  line-height: 1.55;
-  color: var(--cream-dim);
-  text-align: center;
-}
-
-.faq {
-  margin-top: 0.7rem;
-  font-size: 0.72rem;
-  color: var(--cream-dim);
-}
-
-.faq summary {
-  cursor: pointer;
-  text-align: center;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-size: 0.66rem;
-  color: var(--cream);
-}
-
-.faq summary:hover {
-  color: var(--brass-soft);
-}
-
-.faq dl {
-  margin: 0.6rem 0 0;
-}
-
-.faq dt {
-  font-weight: 700;
-  color: var(--cream);
-  margin-top: 0.55rem;
-}
-
-.faq dd {
-  margin: 0.2rem 0 0;
-  line-height: 1.5;
-}
-
-.ext-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.4rem 1.2rem;
-  margin-top: 0.8rem;
-  font-size: 0.68rem;
-}
-
-.ext-links a {
-  color: var(--cream-dim);
-  text-decoration-color: rgb(201 164 55 / 45%);
-  text-underline-offset: 3px;
-  transition: color 0.2s ease;
-}
-
-.ext-links a:hover {
-  color: var(--brass-soft);
 }
 
 .disclaimer {

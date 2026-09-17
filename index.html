@@ -151,6 +151,155 @@
   </head>
   <body>
     <div id="app"></div>
+    <section class="site-about" id="about">
+      <div data-lang="en" lang="en">
+        <h2>About this Iron Nest calculator</h2>
+        <p>
+          Free, unofficial ballistic calculator for IRON NEST: Heavy Turret Simulator. Enter
+          azimuth, distance and powder charges and get the exact gun elevation using the in-game
+          formula (12° per km per charge, 5 km of range per charge, 30 km max). Shot cards for both
+          guns, fully keyboard-driven, and everything stays in your browser.
+        </p>
+        <h3>How to use it</h3>
+        <ol>
+          <li>Enter the azimuth to the target and the distance in kilometers read from the map.</li>
+          <li>
+            Pick the powder charges or leave AUTO: the tool suggests the lowest charge that reaches
+            the target.
+          </li>
+          <li>
+            Read the required elevation and log the shot on gun 1 or gun 2. Cards can be dragged
+            between guns and each volley is kept in the history.
+          </li>
+        </ol>
+        <h3>The in-game formula</h3>
+        <p>
+          Elevation in degrees equals the distance in meters times 0.012 divided by the number of
+          charges, capped at 60°. Each charge adds 5 km of reach: one charge covers 5 km and six
+          charges cover 30 km. Anything beyond 30 km is out of range. The round type (HE, AP, DRIL,
+          STAR, EMPT) is recorded on the shot card and does not change the elevation.
+        </p>
+        <h3>Keyboard</h3>
+        <p>
+          Enter advances and logs · Tab moves through all controls · Q/E or ←/→ change the charge ·
+          Ctrl/⌘+Z undoes the last shot · R resets and saves the volley · C switches the target gun.
+        </p>
+        <h3>FAQ</h3>
+        <dl>
+          <dt>How does the Iron Nest ballistic calculator work?</dt>
+          <dd>
+            It uses the in-game ballistic model: elevation in degrees equals distance in meters
+            times 0.012 divided by the number of powder charges, capped at 60 degrees. Each charge
+            extends maximum range by 5 km, up to 30 km with six charges. The tool always suggests
+            the lowest charge that reaches the target.
+          </dd>
+          <dt>Is this an official IRON NEST tool?</dt>
+          <dd>
+            No. This is an unofficial, free, fan-made companion tool. It is not affiliated with or
+            endorsed by the developers of IRON NEST: Heavy Turret Simulator.
+          </dd>
+          <dt>Is it free and does it store my data?</dt>
+          <dd>
+            Yes, it is completely free with no accounts and no tracking. Shot cards and volley
+            history are stored locally in your browser only.
+          </dd>
+          <dt>Is it available in Spanish?</dt>
+          <dd>
+            Yes. The calculator is bilingual: it detects your browser language and you can switch
+            between Spanish and English with one click.
+          </dd>
+        </dl>
+        <nav class="ext-links" aria-label="Related links">
+          <a
+            href="https://store.steampowered.com/app/2950790/IRON_NEST_Heavy_Turret_Simulator/"
+            target="_blank"
+            rel="noopener"
+            >IRON NEST: Heavy Turret Simulator on Steam</a
+          >
+          <a href="https://github.com/StevenACZ/iron-nest-calculator" target="_blank" rel="noopener"
+            >Source code on GitHub</a
+          >
+          <a href="https://iron-nest.fandom.com/" target="_blank" rel="noopener"
+            >IRON NEST Wiki (Fandom)</a
+          >
+        </nav>
+      </div>
+      <div data-lang="es" lang="es">
+        <h2>Sobre esta calculadora de Iron Nest</h2>
+        <p>
+          Calculadora balística gratuita y no oficial para IRON NEST: Heavy Turret Simulator.
+          Introduce azimut, distancia y cargas de pólvora y obtén la elevación exacta del cañón con
+          la fórmula del juego (12° por km por carga, 5 km de alcance por carga, 30 km máximo).
+          Tarjetas de disparo para ambos cañones, todo por teclado, y todo se queda en tu navegador.
+        </p>
+        <h3>Cómo se usa</h3>
+        <ol>
+          <li>
+            Introduce el azimut hacia el objetivo y la distancia en kilómetros leída en el mapa.
+          </li>
+          <li>
+            Elige las cargas de pólvora o deja AUTO: la herramienta sugiere la carga más baja que
+            llega al objetivo.
+          </li>
+          <li>
+            Lee la elevación requerida y registra el disparo en el cañón 1 o 2. Las tarjetas se
+            arrastran entre cañones y cada tanda queda en el historial.
+          </li>
+        </ol>
+        <h3>La fórmula del juego</h3>
+        <p>
+          La elevación en grados es la distancia en metros por 0.012 entre el número de cargas, con
+          un máximo de 60°. Cada carga añade 5 km de alcance: una carga cubre 5 km y seis cargas
+          cubren 30 km. Más allá de 30 km el objetivo queda fuera de alcance. El tipo de obús (HE,
+          AP, DRIL, STAR, EMPT) se anota en la tarjeta y no cambia la elevación.
+        </p>
+        <h3>Teclado</h3>
+        <p>
+          Enter avanza y registra · Tab recorre todos los controles · Q/E o ←/→ cambian la carga ·
+          Ctrl/⌘+Z deshace el último disparo · R reinicia y guarda la tanda · C cambia el cañón
+          destino.
+        </p>
+        <h3>Preguntas frecuentes</h3>
+        <dl>
+          <dt>¿Cómo funciona la calculadora balística de Iron Nest?</dt>
+          <dd>
+            Usa el modelo balístico del juego: la elevación en grados es la distancia en metros por
+            0.012 entre el número de cargas de pólvora, con un máximo de 60 grados. Cada carga añade
+            5 km de alcance, hasta 30 km con seis cargas. La herramienta siempre sugiere la carga
+            más baja que llega al objetivo.
+          </dd>
+          <dt>¿Es una herramienta oficial de IRON NEST?</dt>
+          <dd>
+            No. Es una herramienta de fans gratuita y no oficial. No tiene afiliación ni respaldo de
+            los desarrolladores de IRON NEST: Heavy Turret Simulator.
+          </dd>
+          <dt>¿Es gratis y guarda mis datos?</dt>
+          <dd>
+            Sí, es completamente gratis, sin cuentas y sin rastreo. Las tarjetas de disparo y el
+            historial de tandas se guardan solo en tu navegador.
+          </dd>
+          <dt>¿Está disponible en español?</dt>
+          <dd>
+            Sí. La calculadora es bilingüe: detecta el idioma del navegador y puedes cambiar entre
+            español e inglés con un clic.
+          </dd>
+        </dl>
+        <nav class="ext-links" aria-label="Enlaces relacionados">
+          <a
+            href="https://store.steampowered.com/app/2950790/IRON_NEST_Heavy_Turret_Simulator/"
+            target="_blank"
+            rel="noopener"
+            >IRON NEST: Heavy Turret Simulator en Steam</a
+          >
+          <a href="https://github.com/StevenACZ/iron-nest-calculator" target="_blank" rel="noopener"
+            >Código fuente en GitHub</a
+          >
+          <a href="https://iron-nest.fandom.com/" target="_blank" rel="noopener"
+            >Wiki de IRON NEST (Fandom)</a
+          >
+        </nav>
+      </div>
+    </section>
     <noscript>
       <main>
         <h1>Iron Nest Ballistic Calculator</h1>

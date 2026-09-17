@@ -177,3 +177,83 @@ input {
 .shake {
   animation: shake 0.35s ease;
 }
+
+.site-about {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 1rem 2.5rem;
+  font-size: 0.72rem;
+  line-height: 1.55;
+  color: var(--cream-dim);
+}
+
+.site-about h2,
+.site-about h3 {
+  margin: 1.3rem 0 0.3rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+
+.site-about h2 {
+  font-size: 1.05rem;
+  text-align: center;
+}
+
+.site-about h3 {
+  font-size: 0.82rem;
+}
+
+.site-about p,
+.site-about ol {
+  margin: 0.3rem 0;
+}
+
+.site-about ol {
+  padding-left: 1.2rem;
+}
+
+.site-about li {
+  margin-top: 0.25rem;
+}
+
+.site-about dl {
+  margin: 0.3rem 0 0;
+}
+
+.site-about dt {
+  margin-top: 0.55rem;
+  font-weight: 700;
+  color: var(--cream);
+}
+
+.site-about dd {
+  margin: 0.2rem 0 0;
+}
+
+.site-about .ext-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.2rem;
+  margin-top: 1rem;
+  font-size: 0.68rem;
+}
+
+.site-about .ext-links a {
+  color: var(--cream-dim);
+  text-decoration-color: rgb(201 164 55 / 45%);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.site-about .ext-links a:hover {
+  color: var(--brass-soft);
+}
+
+html[lang='es'] .site-about [data-lang='en'],
+html:not([lang='es']) .site-about [data-lang='es'] {
+  display: none;
+}
