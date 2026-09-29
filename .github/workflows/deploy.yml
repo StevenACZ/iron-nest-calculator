@@ -111,7 +111,7 @@ jobs:
         run: |
           port="${SSH_PORT:-22}"
           ssh -i ~/.ssh/deploy_key -p "$port" "$SSH_USER@$SSH_HOST" \
-            "mkdir -p '$DEPLOY_PATH' && find '$DEPLOY_PATH' -type d -name '.~tmp~' -prune -exec rm -rf {} +"
+            "deploy ${DEPLOY_PATH##*/} $GITHUB_SHA"
           rsync -avz --delete --delete-delay --delay-updates \
             --chmod=D755,F644 \
             -e "ssh -i ~/.ssh/deploy_key -p $port" \
@@ -124,7 +124,7 @@ jobs:
         run: |
           port="${SSH_PORT:-22}"
           ssh -i ~/.ssh/deploy_key -p "$port" "$SSH_USER@$SSH_HOST" \
-            "mkdir -p '$DEPLOY_PATH' && find '$DEPLOY_PATH' -type d -name '.~tmp~' -prune -exec rm -rf {} +"
+            "deploy ${DEPLOY_PATH##*/} $GITHUB_SHA"
 
       - name: Validate deployed site
         if: steps.deploy_config.outputs.ready == 'true'
